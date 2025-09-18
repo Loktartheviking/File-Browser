@@ -15,9 +15,13 @@ namespace Journal_Test
     public partial class Form1 : Form
     {
         public string selectedFileName;
+        int x = 0;
+        int dir_location = 0;
+
         public Form1()
         {
             InitializeComponent();
+            filePath.Items.Insert(0, "C:\\");
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -28,10 +32,12 @@ namespace Journal_Test
         private void button1_Click(object sender, EventArgs e)
         {
             Process.Start(selectedFileName);
+
         }
 
         private void filePath_SelectedIndexChanged(object sender, EventArgs e)
         {
+
 
         }
 
@@ -49,7 +55,7 @@ namespace Journal_Test
         { 
             OpenFileDialog fileDir = new OpenFileDialog();
 
-            fileDir.InitialDirectory = "c:\\";
+            fileDir.InitialDirectory = "C:\\ProgramData\\KAPPA\\KServer\\Log";
             fileDir.Filter = "Text files (*.txt, *.TXT, *.log)|*.txt;*.TXT;*.log";
             fileDir.FilterIndex = 0;
             fileDir.RestoreDirectory = true;
@@ -64,6 +70,31 @@ namespace Journal_Test
             this.selectedFileName = selectedFileName;
             textBox1.Text = selectedFileName;
 
+        }
+
+        private void label2_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            x = 0;
+            for (int i = 0; i <filePath.Items.Count; i++)
+            {
+                
+                if ((string)filePath.Items[i] == selectedFileName)
+                {
+                    x++;
+                }
+
+                
+            }
+            if (x == 0)
+            {
+                filePath.Items.Add(selectedFileName);
+                return;
+            }
         }
     }
 }
