@@ -55,7 +55,7 @@ namespace Journal_Test
         { 
             OpenFileDialog fileDir = new OpenFileDialog();
 
-            fileDir.InitialDirectory = "C:\\ProgramData\\KAPPA\\KServer\\Log";
+            fileDir.InitialDirectory = "C:\\";
             fileDir.Filter = "Text files (*.txt, *.TXT, *.log)|*.txt;*.TXT;*.log";
             fileDir.FilterIndex = 0;
             fileDir.RestoreDirectory = true;
