@@ -14,12 +14,14 @@ namespace Journal_Test
 {
     public partial class Form1 : Form
     {
-        public string selectedFileName;
+        public string selectedFileName = "C:\\";
         int x = 0;
         int dir_location = 0;
+        public string path;
 
         public Form1()
         {
+
             InitializeComponent();
             filePath.Items.Insert(0, "C:\\");
         }
@@ -55,7 +57,7 @@ namespace Journal_Test
         { 
             OpenFileDialog fileDir = new OpenFileDialog();
 
-            fileDir.InitialDirectory = "C:\\";
+            fileDir.InitialDirectory = "C:\\ProgramData\\KAPPA\\KServer\\Log";
             fileDir.Filter = "Text files (*.txt, *.TXT, *.log)|*.txt;*.TXT;*.log";
             fileDir.FilterIndex = 0;
             fileDir.RestoreDirectory = true;
@@ -69,6 +71,7 @@ namespace Journal_Test
             string selectedFileName = fileDir.FileName;
             this.selectedFileName = selectedFileName;
             textBox1.Text = selectedFileName;
+            path = Path.GetDirectoryName(selectedFileName);
 
         }
 
@@ -79,11 +82,12 @@ namespace Journal_Test
 
         private void button3_Click(object sender, EventArgs e)
         {
+            
             x = 0;
             for (int i = 0; i <filePath.Items.Count; i++)
             {
                 
-                if ((string)filePath.Items[i] == selectedFileName)
+                if ((string)filePath.Items[i] == path)
                 {
                     x++;
                 }
@@ -92,8 +96,27 @@ namespace Journal_Test
             }
             if (x == 0)
             {
-                filePath.Items.Add(selectedFileName);
+                
+                filePath.Items.Add(path);
                 return;
+            }
+        }
+
+        private void button1_Click_1(object sender, EventArgs e)
+        {
+            filePath.Items.Clear();
+        }
+
+        private void button2_Click_1(object sender, EventArgs e)
+        {
+            fileName.Items.Clear();
+            string[] files = Directory.GetFiles(path);
+
+            foreach (string file in files)
+            {
+                string filename = Path.GetFileName(file);
+                Console.WriteLine(file);
+                fileName.Items.Add(filename);
             }
         }
     }
